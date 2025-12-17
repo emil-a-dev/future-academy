@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Комплекс маркетинговых коммуникаций для образовательного центра</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #2196F3;
+            --accent-color: #FF9800;
+            --bg-color: #f8f9fa;
+            --text-color: #333;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, var(--bg-color) 0%, #e9ecef 100%);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            position: relative;
+        }
+        .slide {
+            display: none;
+            padding: 60px;
+            min-height: 500px;
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.5s ease;
+        }
+        .slide.active {
+            display: block;
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .slide.active .content {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .highlight {
+            background: linear-gradient(45deg, var(--accent-color), #FFC107);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+        }
+        .btn-more {
+            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        .btn-more:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .testimonial {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid var(--accent-color);
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+        }
+        .stat {
+            text-align: center;
+            background: var(--bg-color);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+        .stat:hover {
+            transform: translateY(-5px);
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+        }
+        h2 {
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: var(--secondary-color);
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 10px;
+        }
+        p, ul {
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+        li::before {
+            content: '✓';
+            color: var(--primary-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+        button {
+            background: linear-gradient(45deg, var(--accent-color), #FFC107);
+            border: none;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        .indicators {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            background: var(--bg-color);
+        }
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ddd;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .indicator.active {
+            background: var(--primary-color);
+            transform: scale(1.2);
+        }
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            h2 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <button onclick="prevSlide()">← Предыдущий</button>
+            <span id="slide-counter">1 / 7</span>
+            <button onclick="nextSlide()">Следующий →</button>
+        </div>
+        
+        <div id="slide1" class="slide active">
+            <div class="content">
+                <h1>Добро пожаловать в "Академию Будущего"!</h1>
+                <p>Где образование встречает инновации. <span class="highlight">Ваш путь к успеху начинается здесь!</span></p>
+                <button class="btn-more" onclick="nextSlide()">Начать презентацию</button>
+            </div>
+        </div>
+        
+        <div id="slide2" class="slide">
+            <div class="content">
+                <h2>1. Кто мы?</h2>
+                <p>"Академия Будущего" – ваш надежный партнер в онлайн-образовании. Мы предлагаем курсы по <span class="highlight">IT, языкам, бизнесу и творчеству</span>, адаптированные для современной жизни.</p>
+                <ul>
+                    <li>🎓 Сертифицированные преподаватели</li>
+                    <li>💻 Интерактивные платформы</li>
+                    <li>⏰ Гибкий график обучения</li>
+                    <li>🌟 Персонализированные программы</li>
+                </ul>
+                <button class="btn-more" onclick="nextSlide()">Узнать больше</button>
+            </div>
+        </div>
+        
+        <div id="slide3" class="slide">
+            <div class="content">
+                <h2>2. Наши цели</h2>
+                <p>Мы стремимся сделать образование доступным и эффективным для каждого!</p>
+                <ul>
+                    <li onclick="alert('Цель: Повысить осведомленность среди молодежи 18-35 лет')">📈 Повысить осведомленность среди целевой аудитории</li>
+                    <li onclick="alert('Цель: Привлечь 500 новых студентов в первый квартал')">👥 Привлечь 500 новых студентов</li>
+                    <li onclick="alert('Цель: Стать лидером в онлайн-образовании')">🏆 Укрепить имидж лидера</li>
+                    <li onclick="alert('Цель: 70% удовлетворенности студентов')">😊 Достичь высокой удовлетворенности</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div id="slide4" class="slide">
+            <div class="content">
+                <h2>3. Наши сообщения</h2>
+                <p>Мы говорим языком, который вдохновляет на действие!</p>
+                <div class="testimonial">
+                    <p>"Образование без границ: учись где угодно, когда угодно!"</p>
+                </div>
+                <div class="testimonial">
+                    <p>"Инновационные курсы от экспертов: ваш путь к успешной карьере."</p>
+                </div>
+                <button class="btn-more" onclick="nextSlide()">Посмотреть инструменты</button>
+            </div>
+        </div>
+        
+        <div id="slide5" class="slide">
+            <div class="content">
+                <h2>4. Наши инструменты</h2>
+                <p>Мы используем передовые маркетинговые инструменты для привлечения студентов.</p>
+                <ul>
+                    <li>📱 Цифровая реклама в соцсетях</li>
+                    <li>🎥 Контент-маркетинг и видео</li>
+                    <li>💌 Email-рассылки</li>
+                    <li>🤝 Партнерства и PR</li>
+                </ul>
+                <button class="btn-more" onclick="nextSlide()">Каналы коммуникации</button>
+            </div>
+        </div>
+        
+        <div id="slide6" class="slide">
+            <div class="content">
+                <h2>5. Каналы коммуникации</h2>
+                <p>Мы доступны там, где вы!</p>
+                <ul>
+                    <li>🌐 Сайт и мобильное приложение</li>
+                    <li>📺 YouTube и соцсети</li>
+                    <li>💬 Мессенджеры и email</li>
+                    <li>🏫 Оффлайн-мероприятия</li>
+                </ul>
+                <div class="stats">
+                    <div class="stat">
+                        <h3>10K+</h3>
+                        <p>Студентов</p>
+                    </div>
+                    <div class="stat">
+                        <h3>50+</h3>
+                        <p>Курсов</p>
+                    </div>
+                    <div class="stat">
+                        <h3>95%</h3>
+                        <p>Удовлетворенность</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="slide7" class="slide">
+            <div class="content">
+                <h2>6. Ожидаемые результаты</h2>
+                <p>Присоединяйтесь к нам и увидьте результаты!</p>
+                <ul>
+                    <li>📈 +40% регистраций</li>
+                    <li>🌟 +60% узнаваемости</li>
+                    <li>💰 +50% дохода</li>
+                    <li>⭐ 4.8/5 рейтинга</li>
+                </ul>
+                <div class="testimonial">
+                    <p>"Благодаря 'Академии Будущего' я нашел работу мечты!" – Алексей, студент IT-курса</p>
+                </div>
+                <button class="btn-more" onclick="goToSlide(1)">Начать заново</button>
+            </div>
+        </div>
+        
+        <div class="indicators">
+            <div class="indicator active" onclick="goToSlide(1)"></div>
+            <div class="indicator" onclick="goToSlide(2)"></div>
+            <div class="indicator" onclick="goToSlide(3)"></div>
+            <div class="indicator" onclick="goToSlide(4)"></div>
+            <div class="indicator" onclick="goToSlide(5)"></div>
+            <div class="indicator" onclick="goToSlide(6)"></div>
+            <div class="indicator" onclick="goToSlide(7)"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 7;
+        let autoPlay = true;
+        let autoPlayInterval;
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            const indicators = document.querySelectorAll('.indicator');
+            slides.forEach(slide => slide.classList.remove('active'));
+            indicators.forEach(ind => ind.classList.remove('active'));
+            document.getElementById('slide' + n).classList.add('active');
+            indicators[n-1].classList.add('active');
+            document.getElementById('slide-counter').textContent = n + ' / ' + totalSlides;
+        }
+
+        function nextSlide() {
+            currentSlide = currentSlide < totalSlides ? currentSlide + 1 : 1;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide = currentSlide > 1 ? currentSlide - 1 : totalSlides;
+            showSlide(currentSlide);
+        }
+
+        function goToSlide(n) {
+            currentSlide = n;
+            showSlide(currentSlide);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+            if (e.key === ' ') { // Space to pause/play
+                toggleAutoPlay();
+                e.preventDefault();
+            }
+        });
+
+        function toggleAutoPlay() {
+            autoPlay = !autoPlay;
+            if (autoPlay) {
+                startAutoPlay();
+            } else {
+                clearInterval(autoPlayInterval);
+            }
+        }
+
+        function startAutoPlay() {
+            autoPlayInterval = setInterval(() => {
+                if (autoPlay) nextSlide();
+            }, 8000); // 8 seconds per slide
+        }
+
+        // Start auto-play on load
+        startAutoPlay();
+    </script>
+</body>
+</html>
